@@ -1,4 +1,30 @@
 import { Terminal, Zap, Shield, GitBranch, Code, Download, Github, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
+
+interface FeatureCardProps {
+  icon: React.ReactNode,
+  title: string,
+  description: string,
+  gradient: string
+}
+
+interface InstallStepProps {
+  number: number,
+  title: string,
+  code: string
+}
+
+interface UsageExampleProps {
+  title: string,
+  description: string,
+  code: string
+}
+
+interface CommandCardProps {
+  command: string,
+  args?: string,
+  description: string
+}
 
 export default function Home() {
   return (
@@ -145,22 +171,22 @@ export default function Home() {
 
           <div className="space-y-6 max-w-3xl mx-auto">
             <InstallStep
-              number="1"
+              number={1}
               title="Download gitpush.sh"
               code="curl -o ~/gitpush.sh https://raw.githubusercontent.com/vehutech/gitpush/main/gitpush.sh"
             />
             <InstallStep
-              number="2"
+              number={2}
               title="Add to your shell config"
               code="echo 'source ~/gitpush.sh' >> ~/.bashrc  # or ~/.zshrc"
             />
             <InstallStep
-              number="3"
+              number={3}
               title="Reload your shell"
               code="source ~/.bashrc  # or source ~/.zshrc"
             />
             <InstallStep
-              number="4"
+              number={4}
               title="Start using it!"
               code='gitpush "your commit message"'
             />
@@ -170,7 +196,7 @@ export default function Home() {
             <a
               href="/gitpush.sh"
               download
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg shadow-cyan-500/25"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg shadow-cyan-500/25"
             >
               <Download className="w-5 h-5" />
               Download gitpush.sh
@@ -181,7 +207,7 @@ export default function Home() {
 
       {/* Usage Examples */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+        <h2 className="text-4xl font-bold text-center mb-16 bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
           Usage Examples
         </h2>
 
@@ -235,23 +261,23 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-linear-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
                 <Terminal className="w-5 h-5 text-white" />
               </div>
               <span className="font-semibold">gitpush</span>
             </div>
             
             <div className="text-gray-400 text-sm">
-              MIT License • Built for developers, by developers
+              MIT License • Built for developers, by: <a className='bg-linear-to-br from-cyan-500 p-1 text-black rounded-md to-blue-600 font-black' href="https://vehutech.com" target='_blank'>D Vehu Alonge</a>
             </div>
             
             <div className="flex gap-6">
               <a href="https://github.com/vehutech/gitpush" className="text-gray-400 hover:text-cyan-400 transition-colors">
                 GitHub
               </a>
-              <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors">
+              <Link href="/doc" className="text-gray-400 hover:text-cyan-400 transition-colors">
                 Documentation
-              </a>
+              </Link>
               <a href="#" className="text-gray-400 hover:text-cyan-400 transition-colors">
                 Issues
               </a>
@@ -263,7 +289,7 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ icon, title, description, gradient }: any) {
+function FeatureCard({ icon, title, description, gradient }: FeatureCardProps) {
   return (
     <div className="group relative bg-gray-900 border border-gray-800 rounded-2xl p-8 hover:border-gray-700 transition-all">
       <div className="absolute inset-0 bg-linear-to-br opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity" style={{
@@ -280,7 +306,7 @@ function FeatureCard({ icon, title, description, gradient }: any) {
   );
 }
 
-function InstallStep({ number, title, code }: any) {
+function InstallStep({ number, title, code }: InstallStepProps) {
   return (
     <div className="flex gap-6 items-start">
       <div className="shrink-0 w-10 h-10 rounded-full bg-linear-to-br from-cyan-500 to-blue-600 flex items-center justify-center font-bold">
@@ -296,7 +322,7 @@ function InstallStep({ number, title, code }: any) {
   );
 }
 
-function UsageExample({ title, description, code }: any) {
+function UsageExample({ title, description, code }: UsageExampleProps) {
   return (
     <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
       <h3 className="text-xl font-bold mb-2">{title}</h3>
@@ -308,7 +334,7 @@ function UsageExample({ title, description, code }: any) {
   );
 }
 
-function CommandCard({ command, args, description }: any) {
+function CommandCard({ command, args, description }: CommandCardProps) {
   return (
     <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-colors">
       <div className="font-mono text-lg mb-2">
